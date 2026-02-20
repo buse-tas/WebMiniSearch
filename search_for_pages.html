@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WebMiniSearch — Results</title>
+    </head>
+    <body>
+        <div align="center" style="width: 50%; margin-left: auto; margin-right: auto; margin-top: 5%;">
+            <!-- FIX #1: Jinja değişkenleri tırnak içine alındı -->
+            <!-- FIX #3: Submit butonu eklendi -->
+            <form action="search_for_pages" method="get">
+                <label for="search_query"
+                    style="display: block; margin-bottom: 1%; font-weight: bold;">
+                    Your Search Query:
+                </label>
+                <input name="search_query" value="{{ search_query }}" style="width: 100%;">
+                <button type="submit" style="margin-top: 8px; padding: 6px 16px;">Ara</button>
+            </form>
+        </div>
+
+        <div id="main-content" style="width: 50%; margin-left: auto; margin-right: auto;">
+            <ul>
+                {% if found_pages|length > 0 %}
+                    {% for page in found_pages %}
+                        <li>
+                            <!-- FIX #1: href değeri tırnak içine alındı -->
+                            <a href="{{ page['page_url'] }}">{{ page["title"] }}</a>
+                            <p>{{ page["content_summary"] }}</p>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <p>No relevant pages found</p>
+                {% endif %}
+            </ul>
+        </div>
+    </body>
+<!-- FIX #1: Kapanış tag'i düzeltildi: <html> → </html> -->
+</html>
